@@ -6,7 +6,7 @@ class Stream:
                  channel_layout, profile):
         self.index = index
         self.title = title
-        self.type = stream_type
+        self.stream_type = stream_type
         self.language = language
         self.bitrate = bitrate
         self.codec_short_name = codec_short_name

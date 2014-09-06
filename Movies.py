@@ -19,6 +19,10 @@ class Movies:
     def add_movie(self, path):
         self.movies.append(Movie(path, self.languages_to_keep, self.mkvmerge_path, self.accept_input))
 
+    def add_all_movies(self, paths):
+        for path in paths:
+            self.add_movie(path)
+
     def process(self):
         for movie in self.movies:
             if self.accept_input:

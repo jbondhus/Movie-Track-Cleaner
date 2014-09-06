@@ -3,10 +3,10 @@ __author__ = 'Jonathan Bondhus'
 import os
 from Movies import Movies
 
-directory = "E:\\TV Shows\\Season 12_old"
+directory = "L:\\tmp"
 languages_to_keep = ["eng"]
 mkvmerge_path = "C:\\Program Files\\MKVToolNix\\mkvmerge.exe"
-accept_input = False
+accept_input = True
 
 file_list = []
 for root, dirs, files in os.walk(directory):
@@ -15,14 +15,14 @@ for root, dirs, files in os.walk(directory):
             print(os.path.splitext(name)[0])
             file_list.append(os.path.join(root, name))
 
-confirmation = input(str(len(file_list)) + " video files (listed above) will be processed. Should I continue? [N]: ")
+if len(file_list):
+    confirmation = input(str(len(file_list)) + " video files (listed above) will be processed. Should I continue? [N]: ")
 
-if confirmation.lower() == "y" or confirmation.lower() == "yes":
-    movies = Movies(languages_to_keep, mkvmerge_path, accept_input)
-    for video in file_list:
-        movies.add_movie(video)
-    movies.process()
-elif confirmation.lower() == "n" or confirmation.lower() == "no":
-    print("User aborted, exiting.")
+    if confirmation.lower() == "y" or confirmation.lower() == "yes":
+        movies = Movies(languages_to_keep, mkvmerge_path, accept_input)
+        movies.add_all_movies(file_list)
+        movies.process()
+    else:
+        print("User aborted, exiting.")
 else:
-    print("User entered unrecognized input, exiting just to be safe.")
+    print("Nothing to do, no files!")
